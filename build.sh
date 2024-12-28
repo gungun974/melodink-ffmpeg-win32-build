@@ -35,8 +35,9 @@ cat <<EOF >"$BUILD_SCRIPT"
     git clone --filter=blob:none --branch='$GIT_BRANCH' '$FFMPEG_REPO' ffmpeg
     cd ffmpeg
  
-    git apply patches/hls-seek/0001-hls-seek-patch-1.patch
-    git apply patches/hls-seek/0002-hls-seek-patch-1.patch
+    git apply ../patches/hls-seek/0001-hls-seek-patch-1.patch
+    git apply ../patches/hls-seek/0002-hls-seek-patch-2.patch
+    git apply ../patches/0003-return-eio-for-prematurely-broken-connection.patch
 
     ./configure --prefix=/ffbuild/prefix --pkg-config-flags="--static" \$FFBUILD_TARGET_FLAGS \$FF_CONFIGURE \
         --extra-cflags="\$FF_CFLAGS" --extra-cxxflags="\$FF_CXXFLAGS" --extra-libs="\$FF_LIBS" \
