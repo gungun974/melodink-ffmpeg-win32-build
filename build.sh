@@ -19,6 +19,8 @@ fi
 rm -rf ffbuild
 mkdir ffbuild
 
+cp patches/0001-return-eio-for-prematurely-broken-connection.patch ffbuild/
+
 FFMPEG_REPO="${FFMPEG_REPO:-https://github.com/FFmpeg/FFmpeg.git}"
 FFMPEG_REPO="${FFMPEG_REPO_OVERRIDE:-$FFMPEG_REPO}"
 GIT_BRANCH="${GIT_BRANCH:-master}"
@@ -34,10 +36,8 @@ cat <<EOF >"$BUILD_SCRIPT"
 
     git clone --filter=blob:none --branch='$GIT_BRANCH' '$FFMPEG_REPO' ffmpeg
     cd ffmpeg
- 
-    git apply ../patches/hls-seek/0001-hls-seek-patch-1.patch
-    git apply ../patches/hls-seek/0002-hls-seek-patch-2.patch
-    git apply ../patches/0003-return-eio-for-prematurely-broken-connection.patch
+
+    git apply ../0001-return-eio-for-prematurely-broken-connection.patch
 
     ./configure --prefix=/ffbuild/prefix --pkg-config-flags="--static" \$FFBUILD_TARGET_FLAGS \$FF_CONFIGURE \
         --extra-cflags="\$FF_CFLAGS" --extra-cxxflags="\$FF_CXXFLAGS" --extra-libs="\$FF_LIBS" \
